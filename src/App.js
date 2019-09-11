@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { NavItem, Grid, Row, Col} from 'react-bootstrap';
+
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Row'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import Container from 'react-bootstrap/Container'
 import { viewType } from './globals/utils';
 import ReceiveFromIsland from './login/components/ReceiveFromIsland';
 import { getUser, getIsLoggedIn } from './login/reducers/user';
@@ -20,56 +25,23 @@ const App = ({
   isLoggedIn
 }) => (
   <div className={`jafna ${viewType(currentView.viewKey)}`}>
-    <nav className="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
-      <div className="container">
-        <div className="navbar-header">
-          <button
-            type="button"
-            className="navbar-toggle"
-            data-toggle="collapse"
-            data-target="#navigation-example"
-          >
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-          </button>
-          <a href="/">
-            <div className="logo-container">
-              <div className="logo">
-                <img alt="Logo" src="bootstrap/img/logo.jpg" />
-              </div>              
-            </div>
-            <div className="brand">Jafna ehf</div>
-          </a>
-        </div>
-        <div className="collapse navbar-collapse" id="navigation-example">
-          <ul className="nav navbar-nav navbar-right">
-            <LinkContainer to="/Lantaki">
-              <NavItem eventKey={1}>Lántaki</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/Fjarfestir">
-              <NavItem eventKey={2}>Fjárfestir</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/Fyrirtaekid">
-              <NavItem eventKey={3}>Fyrirtækið</NavItem>
-            </LinkContainer>
-            <li>
-              {user.token ? (<p> Velkomin(n) {user.firstName} </p>) : null}
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-    </nav>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" id="navigation-example">
+      <Navbar.Brand href="#home">
+        <img alt="Logo" src="bootstrap/img/logotop.jpg" width="100" height="100" className="d-inline-block align-top" />
+      </Navbar.Brand>       
+        <Nav className="mr-auto">
+          <Nav.Link href="/Lantaki">Lántaki</Nav.Link>
+          <Nav.Link href="/Fjarfestir">Fjárfestir</Nav.Link>
+          <Nav.Link href="/Fyrirtaekid">Fyrirtækið</Nav.Link>            
+        </Nav>          
+    </Navbar>
 
     <div className="wrapper">
       {user.email ? (
         <div className="header header-filter city-background" />
       ) : null}
       {!isLoggedIn ? (
-        <Grid>
+        <Container>
           <Row className="show-grid">
             <Col xs={12} md={6}>
               <MicroContainer header="Innskráning Island.is (nota https://www.jafna.is/)">                      
@@ -82,7 +54,7 @@ const App = ({
               </MicroContainer>
             </Col>
           </Row>
-        </Grid>
+        </Container>
       ) : null}
       {children}
       <footer className="footer">
